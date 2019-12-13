@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ca92e0b2d908e4fa9b01cd744b2c27, type: 3}
+  m_Name: SpritesCatalog
+  m_EditorClassIdentifier: 
+  sprites:
+  - key: icon-season-winter
+    value: {fileID: -4541530823775549834, guid: 43be3b0835b5db748aa582011d33b427,
+      type: 3}
+  - key: icon-season-spring
+    value: {fileID: -3670383502922554767, guid: 43be3b0835b5db748aa582011d33b427,
+      type: 3}
+  - key: icon-season-summer
+    value: {fileID: 3573036208370857778, guid: 43be3b0835b5db748aa582011d33b427, type: 3}
+  - key: icon-season-autumn
+    value: {fileID: -9194076771219432755, guid: 43be3b0835b5db748aa582011d33b427,
+      type: 3}
