@@ -15,6 +15,12 @@ public class Land : MonoBehaviour
     private void Awake()
     {
         meshRenderer.sharedMaterial = defaultMaterial;
+        GameManager.onAdvanceSeason += AdvanceSeason;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.onAdvanceSeason -= AdvanceSeason;
     }
 
     public bool PlaceItem(ItemInfo itemInfo)
@@ -27,13 +33,23 @@ public class Land : MonoBehaviour
         return true;
     }
 
-    public void RemoveItem()
+    /// <summary>
+    /// Will remove the item if it is in planting state.
+    /// </summary>
+    /// <returns>Return true if the land become empty</returns>
+    public bool RemoveItem()
     {
         if (!Item)
-            return;
+            return true;
 
-        Item.Destroy();
-        Item = null;
+        if (Item.stage == ItemStage.Planting)
+        {
+            Item.Destroy();
+            Item = null;
+            return true;
+        }
+
+        return false;
     }
 
     public void Acquire()
@@ -42,4 +58,11 @@ public class Land : MonoBehaviour
         meshRenderer.sharedMaterial = acquiredMaterial;
     }
 
+    private void AdvanceSeason(Season season)
+    {
+        if (Item)
+        {
+            Item.AdvanceSeason(season);
+        }
+    }
 }

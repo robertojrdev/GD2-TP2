@@ -1,0 +1,1 @@
+public enum ItemStage {Planting, Growing, ReadyToHarvest}

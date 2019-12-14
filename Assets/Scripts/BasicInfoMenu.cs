@@ -12,14 +12,14 @@ public class BasicInfoMenu : MonoBehaviour
     private void Awake()
     {
         nextTurnButton.onClick.AddListener(GameManager.NextSeason);
-        GameManager.onNextSeason += UpdateSeason;
+        GameManager.onNewSeason += UpdateSeason;
         Inventory.onUpdateMoney += UpdateMoney;
         UpdateSeason(Season.Autumn);
     }
 
     private void OnDestroy()
     {
-        GameManager.onNextSeason -= UpdateSeason;
+        GameManager.onNewSeason -= UpdateSeason;
         Inventory.onUpdateMoney -= UpdateMoney;
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+    public static GameManager Instance { get => instance; }
 
     #region Static Getters
     public static Inventory Inventory { get => instance?.inventory; }
@@ -17,33 +18,42 @@ public class GameManager : MonoBehaviour
     #region Private Variables
     private Inventory inventory = new Inventory();
     private Season currentSeason = Season.Autumn;
-    private ItemInfo itemToplace;
+    public ItemInfo itemToplace { get; private set; }
 
     private Camera _camera;
     #endregion
 
     #region Events
-    public static event Action<Season> onNextSeason;
+    /// <summary>
+    /// This will be called to calculate player actions
+    /// </summary>
+    public static event Action<Season> onAdvanceSeason;
+    /// <summary>
+    /// This will be called after onAdvanceSeason when all the players actions are computed.
+    /// <para>ex: Update season icon.</para>
+    /// </summary>
+    public static event Action<Season> onNewSeason;
     #endregion
 
     #region Static Funcions
     public static void SetItemToPlace(ItemInfo itemInfo)
     {
-        if(instance)
+        if (instance)
             instance.itemToplace = itemInfo;
     }
     public static void NextSeason()
     {
-        if(!instance)
+        if (!instance)
             return;
 
         instance.currentSeason = (Season)(((int)instance.currentSeason + 1) % 4);
 
-        if(onNextSeason != null)
-            onNextSeason.Invoke(instance.currentSeason);
-    }
-    
+        if (onAdvanceSeason != null)
+            onAdvanceSeason.Invoke(instance.currentSeason);
 
+        if (onNewSeason != null)
+            onNewSeason.Invoke(instance.currentSeason);
+    }
     #endregion
 
     #region Private Functions
@@ -57,12 +67,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _camera = Camera.main;
         Level.Instance.DrawLevel(initialSetup.mapSize, initialSetup.acquiredLands);
-
-        var acquiredPos = new Vector3(initialSetup.acquiredLands.x, 0, initialSetup.acquiredLands.y);
-        _camera.transform.position = Level.Center - acquiredPos + Vector3.up * 5f;
-
+        _camera = Camera.main;
         InitialResourcesSetup();
     }
 
@@ -71,7 +77,7 @@ public class GameManager : MonoBehaviour
         //Set initial values
         foreach (var item in initialSetup.initialItems)
         {
-            inventory.Add(item.itemInfo, item.amount);
+            inventory.AddItemSupply(item.itemInfo, item.amount);
         }
 
         inventory.AddMoney(initialSetup.money);
@@ -80,7 +86,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetMouseButton(0))
-            if (itemToplace != null && inventory.GetItemAmount(itemToplace) > 0)
+            if (itemToplace != null && inventory.GetItemSupplyAmount(itemToplace) > 0)
                 PlaceItem(itemToplace);
         if (Input.GetMouseButton(1))
             RemoveItem();
@@ -94,7 +100,7 @@ public class GameManager : MonoBehaviour
             var placed = land.PlaceItem(info);
             if (placed)
             {
-                inventory.Remove(info);
+                inventory.RemoveItemSupply(info);
             }
             else
             {
@@ -110,7 +116,7 @@ public class GameManager : MonoBehaviour
         {
             if (land.Item != null)
             {
-                inventory.Add(land.Item.itemInfo);
+                inventory.AddItemSupply(land.Item.itemInfo);
                 land.RemoveItem();
             }
         }

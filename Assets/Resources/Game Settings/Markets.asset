@@ -15,22 +15,22 @@ MonoBehaviour:
   markets:
   - name: Venda Do Bairro
     products:
-    - product: {fileID: 3611809121740805348, guid: 02bcc28059229af44b822e75f99c2e44,
-        type: 3}
-      minimumPurchaseAmount: 0
-      demand: 0
+    - product: {fileID: 11400000, guid: c1beade78f0c7424894c134a58a3a2c0, type: 2}
+      minimumPurchaseAmount: 5
+      minimumSaleAmount: 0
+      demand: 10
       basePurchasePrice: 0
       baseSellingPrice: 0
-    - product: {fileID: 1990571418481003947, guid: 794db554311d7b140bdb47522e3f84df,
-        type: 3}
-      minimumPurchaseAmount: 0
-      demand: 0
+    - product: {fileID: 11400000, guid: 0c6a067ea4d7257448009b64018e3e2e, type: 2}
+      minimumPurchaseAmount: 5
+      minimumSaleAmount: 0
+      demand: 10
       basePurchasePrice: 0
       baseSellingPrice: 0
-    - product: {fileID: 1094954139646899495, guid: b3ba51cfe7282814eaaf6a999b4fe3c5,
-        type: 3}
-      minimumPurchaseAmount: 0
-      demand: 0
+    - product: {fileID: 11400000, guid: 7a682d625e95be74898c504e57d68dff, type: 2}
+      minimumPurchaseAmount: 5
+      minimumSaleAmount: 0
+      demand: 10
       basePurchasePrice: 0
       baseSellingPrice: 0
   - name: Feira

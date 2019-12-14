@@ -10,11 +10,8 @@ public class MarketMenu : MonoBehaviour
     [SerializeField] private RectTransform productsListHolder;
     [SerializeField] private MarketMenuListItem productsListItemPrefab;
 
-    private void OnEnable()
+    private void Start()
     {
-        FillDropdown();
-        FillMarketList();
-
         marketsDropdown.onValueChanged.AddListener(x =>
         {
             ClearMarketList();
@@ -22,9 +19,11 @@ public class MarketMenu : MonoBehaviour
         });
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        // LayoutRebuilder.MarkLayoutForRebuild(transform as RectTransform);
+        ClearMarketList();
+        FillDropdown();
+        FillMarketList();
     }
 
     public void FillDropdown()
@@ -43,11 +42,9 @@ public class MarketMenu : MonoBehaviour
         {
             var item = Instantiate(productsListItemPrefab);
             item.transform.SetParent(productsListHolder, false);
-            item.ProductName = marketProduct.product.name;
+            item.SetItemInfo(marketProduct);
             item.gameObject.SetActive(true);
         }
-
-        StartCoroutine(RebuildUI());
     }
 
     public void ClearMarketList()
@@ -62,11 +59,5 @@ public class MarketMenu : MonoBehaviour
 
             Destroy(child.gameObject);
         }
-    }
-
-    private IEnumerator RebuildUI()
-    {
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
     }
 }

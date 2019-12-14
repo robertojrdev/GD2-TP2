@@ -43,11 +43,13 @@ public class Level : MonoBehaviour
         var startPos = mapSize / 2 - acquiredLands / 2;
         var endPos = startPos + acquiredLands;
 
+        var offset = new Vector3(mapSize.x / 2 * landTileSize.x, 0, mapSize.y / 2 * landTileSize.y);
+
         for (int x = 0; x < mapSize.x; x++)
         {
             for (int y = 0; y < mapSize.y; y++)
             {
-                var position = new Vector3(x * landTileSize.x, 0, y * landTileSize.y);
+                var position = new Vector3(x * landTileSize.x, 0, y * landTileSize.y) - offset;
                 var tile = Instantiate(landTile, position, Quaternion.identity, _levelHolder);
                 _landField[x, y] = tile;
 

@@ -11,15 +11,5 @@ public class MarketsScriptable : ScriptableObject
         public List<MarketProduct> products;
     }
 
-    [System.Serializable]
-    public struct MarketProduct
-    {
-        public Item product;
-        public int minimumPurchaseAmount;
-        public int demand;
-        public float basePurchasePrice;
-        public float baseSellingPrice;
-    }
-
     public List<Market> markets;
 }

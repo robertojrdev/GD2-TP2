@@ -4,11 +4,13 @@ using System;
 
 public class Inventory
 {
-    public int Money {get; private set;}
-    public Dictionary<ItemInfo, int> Items { get; private set; } = new Dictionary<ItemInfo, int>();
+    public int Money { get; private set; }
+    public Dictionary<ItemInfo, int> ItemsSupply { get; private set; } = new Dictionary<ItemInfo, int>();
+    public Dictionary<ItemInfo, int> ItemsFinalProduct { get; private set; } = new Dictionary<ItemInfo, int>();
 
 
-    public static event Action<ItemInfo, int> onUpdateItemAmount;
+    public static event Action<ItemInfo, int> onUpdateItemSupplyAmount;
+    public static event Action<ItemInfo, int> onUpdateItemFinalProductAmount;
     public static event Action<int> onUpdateMoney;
 
     /// <summary>
@@ -18,48 +20,86 @@ public class Inventory
     public void AddMoney(int amount, bool clampToZero = false)
     {
         Money += amount;
-        if(clampToZero && amount < 0)
+        if (clampToZero && amount < 0)
             Money = 0;
-            
-        if(onUpdateMoney != null)
+
+        if (onUpdateMoney != null)
             onUpdateMoney.Invoke(Money);
     }
 
-    public void Add(ItemInfo item, int amount = 1)
+    public void AddItemSupply(ItemInfo item, int amount = 1)
     {
-        if (!Items.ContainsKey(item))
-            Items.Add(item, amount);
+        if (!ItemsSupply.ContainsKey(item))
+            ItemsSupply.Add(item, amount);
         else
-            Items[item] += amount;
+            ItemsSupply[item] += amount;
 
-        if (onUpdateItemAmount != null)
-            onUpdateItemAmount.Invoke(item, Items[item]);
+        if (onUpdateItemSupplyAmount != null)
+            onUpdateItemSupplyAmount.Invoke(item, ItemsSupply[item]);
     }
 
-    public void Remove(ItemInfo item, int amount = 1)
+    public void RemoveItemSupply(ItemInfo item, int amount = 1)
     {
-        if (Items.ContainsKey(item))
+        if (ItemsSupply.ContainsKey(item))
         {
-            var current = Items[item];
+            var current = ItemsSupply[item];
             current -= amount;
             if (current <= 0)
             {
                 current = 0;
-                Items.Remove(item);
+                ItemsSupply.Remove(item);
             }
             else
-                Items[item] = current;
+                ItemsSupply[item] = current;
 
-            if (onUpdateItemAmount != null)
-                onUpdateItemAmount.Invoke(item, current);
+            if (onUpdateItemSupplyAmount != null)
+                onUpdateItemSupplyAmount.Invoke(item, current);
         }
     }
 
-    public int GetItemAmount(ItemInfo item)
+    public void AddItemFinalProduct(ItemInfo item, int amount = 1)
     {
-        if(Items.ContainsKey(item))
-            return Items[item];
-        
+        if (!ItemsFinalProduct.ContainsKey(item))
+            ItemsFinalProduct.Add(item, amount);
+        else
+            ItemsFinalProduct[item] += amount;
+
+        if (onUpdateItemFinalProductAmount != null)
+            onUpdateItemFinalProductAmount.Invoke(item, ItemsFinalProduct[item]);
+    }
+
+    public void RemoveItemFinalProduct(ItemInfo item, int amount = 1)
+    {
+        if (ItemsFinalProduct.ContainsKey(item))
+        {
+            var current = ItemsFinalProduct[item];
+            current -= amount;
+            if (current <= 0)
+            {
+                current = 0;
+                ItemsFinalProduct.Remove(item);
+            }
+            else
+                ItemsFinalProduct[item] = current;
+
+            if (onUpdateItemFinalProductAmount != null)
+                onUpdateItemFinalProductAmount.Invoke(item, current);
+        }
+    }
+
+    public int GetItemSupplyAmount(ItemInfo item)
+    {
+        if (ItemsSupply.ContainsKey(item))
+            return ItemsSupply[item];
+
+        return 0;
+    }
+
+    public int GetItemFinalProductAmount(ItemInfo item)
+    {
+        if (ItemsFinalProduct.ContainsKey(item))
+            return ItemsFinalProduct[item];
+
         return 0;
     }
 }
