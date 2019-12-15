@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,7 +41,7 @@ public class MarketMenu : MonoBehaviour
         {
             var item = Instantiate(productsListItemPrefab);
             item.transform.SetParent(productsListHolder, false);
-            item.SetItemInfo(marketProduct);
+            item.SetItemInfo(marketProduct, marketIndex);
             item.gameObject.SetActive(true);
         }
     }

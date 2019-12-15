@@ -11,40 +11,52 @@ public class MarketMenuListItem : MonoBehaviour
     [SerializeField] private Button buyButton;
     [SerializeField] private Button sellButton;
 
-    private MarketProduct product;
+    private int marketIndex;
+    private MarketProduct marketProduct;
 
     private void Awake()
     {
         amountInputField.contentType = InputField.ContentType.IntegerNumber;
     }
 
-    public void SetItemInfo(MarketProduct product)
+    public void SetItemInfo(MarketProduct product, int marketIndex)
     {
-        this.product = product;
+        this.marketIndex = marketIndex;
+        this.marketProduct = product;
         icon.sprite = product.product.icon;
         textName.text = product.product.name;
         buyButton.onClick.AddListener(BuyItem);
         sellButton.onClick.AddListener(SellItem);
-        amountInputField.text = product.basePurchasePrice.ToString();
     }
 
     private void BuyItem()
     {
         int amount = int.Parse(amountInputField.text);
-        var isAboveMinimumPurchaseAmount = amount >= product.minimumPurchaseAmount;
-
-        if (!isAboveMinimumPurchaseAmount)
+        
+        var purchasesOnCurrentSeason = GameManager.Market.GetPurchaseAmount(marketIndex, marketProduct);
+        var extrapolatedOffer = amount + purchasesOnCurrentSeason > marketProduct.offer;
+        if(extrapolatedOffer)
         {
-            print("you need do buy more in this market - " + product.minimumPurchaseAmount);
+            print("you cannot buy this much of " + marketProduct.product.name + 
+            ", this market only want to buy more " + 
+            (marketProduct.demand - purchasesOnCurrentSeason));
             return;
         }
 
-        var price = amount * product.basePurchasePrice;
+
+        var isAboveMinimumPurchaseAmount = amount >= marketProduct.minimumPurchaseAmount;
+        if (!isAboveMinimumPurchaseAmount)
+        {
+            print("you need do buy more in this market - " + marketProduct.minimumPurchaseAmount);
+            return;
+        }
+
+        var price = amount * marketProduct.basePurchasePrice;
         var hasMoney = GameManager.Inventory.Money >= price;
         if (hasMoney)
         {
-            GameManager.Inventory.AddMoney(-product.basePurchasePrice);
-            GameManager.Inventory.AddItemSupply(product.product, amount);
+            GameManager.Inventory.AddMoney(-marketProduct.basePurchasePrice * amount);
+            GameManager.Inventory.AddItemSupply(marketProduct.product, amount);
         }
         else
         {
@@ -55,22 +67,31 @@ public class MarketMenuListItem : MonoBehaviour
     private void SellItem()
     {
         int amount = int.Parse(amountInputField.text);
-        var isAboveMinimumSaleAmount = amount >= product.minimumSaleAmount;
 
-        if (!isAboveMinimumSaleAmount)
+        var salesOnCurrentSeason = GameManager.Market.GetSalesAmount(marketIndex, marketProduct);
+        var extrapolatedDemand = amount + salesOnCurrentSeason > marketProduct.demand;
+        if(extrapolatedDemand)
         {
-            print("you need to sell more - " + product.minimumSaleAmount);
+            print("you cannot sell this much, this market can only buy " + (marketProduct.demand - salesOnCurrentSeason));
             return;
         }
 
-        var hasEnoughProduct = GameManager.Inventory.GetItemFinalProductAmount(product.product) >= amount;
+        var isAboveMinimumSaleAmount = amount >= marketProduct.minimumSaleAmount;
+
+        if (!isAboveMinimumSaleAmount)
+        {
+            print("you need to sell more - " + marketProduct.minimumSaleAmount);
+            return;
+        }
+
+        var hasEnoughProduct = GameManager.Inventory.GetItemFinalProductAmount(marketProduct.product) >= amount;
         if(!hasEnoughProduct)
         {
             print("you dont have enough of this to sell");
             return;
         }
 
-        GameManager.Inventory.AddMoney(product.baseSellingPrice);
-        GameManager.Inventory.RemoveItemFinalProduct(product.product, amount);
+        GameManager.Inventory.AddMoney(marketProduct.baseSellingPrice * amount);
+        GameManager.Inventory.RemoveItemFinalProduct(marketProduct.product, amount);
     }
 }

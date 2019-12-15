@@ -16,23 +16,26 @@ MonoBehaviour:
   - name: Venda Do Bairro
     products:
     - product: {fileID: 11400000, guid: c1beade78f0c7424894c134a58a3a2c0, type: 2}
-      minimumPurchaseAmount: 5
+      minimumPurchaseAmount: 0
       minimumSaleAmount: 0
-      demand: 10
-      basePurchasePrice: 0
-      baseSellingPrice: 0
+      demand: 5
+      offer: 5
+      basePurchasePrice: 100
+      baseSellingPrice: 110
     - product: {fileID: 11400000, guid: 0c6a067ea4d7257448009b64018e3e2e, type: 2}
-      minimumPurchaseAmount: 5
+      minimumPurchaseAmount: 0
       minimumSaleAmount: 0
-      demand: 10
-      basePurchasePrice: 0
-      baseSellingPrice: 0
+      demand: 6
+      offer: 4
+      basePurchasePrice: 100
+      baseSellingPrice: 120
     - product: {fileID: 11400000, guid: 7a682d625e95be74898c504e57d68dff, type: 2}
-      minimumPurchaseAmount: 5
+      minimumPurchaseAmount: 0
       minimumSaleAmount: 0
       demand: 10
-      basePurchasePrice: 0
-      baseSellingPrice: 0
+      offer: 10
+      basePurchasePrice: 100
+      baseSellingPrice: 110
   - name: Feira
     products: []
   - name: Mercado da Cidade

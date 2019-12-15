@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get => instance; }
 
     #region Static Getters
+    public static Market Market { get => instance?.market; }
     public static Inventory Inventory { get => instance?.inventory; }
     public static Season CurrentSeason { get => instance ? instance.currentSeason : Season.Autumn; }
     #endregion
@@ -16,6 +18,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private Variables
+    private Market market = new Market();
     private Inventory inventory = new Inventory();
     private Season currentSeason = Season.Autumn;
     public ItemInfo itemToplace { get; private set; }
@@ -68,6 +71,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Level.Instance.DrawLevel(initialSetup.mapSize, initialSetup.acquiredLands);
+        onNewSeason += season => market.ResetMovements();
         _camera = Camera.main;
         InitialResourcesSetup();
     }
