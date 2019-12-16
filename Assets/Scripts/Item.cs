@@ -13,6 +13,10 @@ public class Item : MonoBehaviour
         itemInfo = info;
     }
 
+    private void Start() {
+        transform.localScale = Vector3.one * 0.2f;
+    }
+
     public void Destroy()
     {
         GameObject.Destroy(gameObject);
@@ -23,6 +27,7 @@ public class Item : MonoBehaviour
         switch (stage)
         {
             case ItemStage.Planting:
+                age++;
                 stage = ItemStage.Growing;
                 break;
             case ItemStage.Growing:
@@ -35,6 +40,10 @@ public class Item : MonoBehaviour
                 }
                 break;
         }
+
+        var deltaSize = Mathf.InverseLerp(0, itemInfo.matureTime, age);
+        var size = Mathf.Lerp(0.2f, 1, deltaSize);
+        transform.localScale = Vector3.one * size;
     }
 
     public void Harvest(Season season)

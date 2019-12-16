@@ -29,7 +29,6 @@ public class MenuChooser : MonoBehaviour
 
     private void Display(int id)
     {
-        print(id);
         if (id == _currentOpened)
             Close(id);
         else

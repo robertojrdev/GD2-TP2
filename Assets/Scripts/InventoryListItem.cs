@@ -8,6 +8,7 @@ public class InventoryListItem : MonoBehaviour
     [SerializeField] private Text itemName;
     [SerializeField] private Text amountText;
     [SerializeField] private Color selectedColor = Color.yellow;
+    [SerializeField] private PopUpItemInfo popUp;
 
 
     private Button _button;
@@ -31,6 +32,7 @@ public class InventoryListItem : MonoBehaviour
         icon.sprite = info.icon;
         itemName.text = info.name;
         itemInfo = info;
+        popUp.SetItemInfo(info);
     }
 
     public void SetButtonEnabled(bool enabled)
