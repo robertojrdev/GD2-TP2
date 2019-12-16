@@ -54,6 +54,11 @@ public class Item : MonoBehaviour
         if (dice <= successRate)
         {
             GameManager.Inventory.AddItemFinalProduct(itemInfo, itemInfo.amountPerLandUnit);
+            Log.Msg("Harvested " + itemInfo.amountPerLandUnit + " of " + itemInfo.name, LogType.SeasonActions);
+        }
+        else
+        {
+            Log.Msg("A plantation of " + itemInfo.name + " failed", LogType.Warning);
         }
 
         Destroy(gameObject);

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -74,6 +73,12 @@ public class GameManager : MonoBehaviour
         onNewSeason += season => market.ResetMovements();
         _camera = Camera.main;
         InitialResourcesSetup();
+
+        Market.onPurchase += (market, mProduct, amount) => Log.Msg(
+            "Purchased " + amount + " of " + mProduct.product.name, LogType.Info);
+
+        Market.onSell += (market, mProduct, amount) => Log.Msg(
+            "Sold " + amount + " of " + mProduct.product.name, LogType.Info);
     }
 
     private void InitialResourcesSetup()

@@ -37,7 +37,21 @@ MonoBehaviour:
       basePurchasePrice: 100
       baseSellingPrice: 110
   - name: Feira
-    products: []
+    products:
+    - product: {fileID: 11400000, guid: c1beade78f0c7424894c134a58a3a2c0, type: 2}
+      minimumPurchaseAmount: 0
+      minimumSaleAmount: 0
+      demand: 0
+      offer: 0
+      basePurchasePrice: 0
+      baseSellingPrice: 0
+    - product: {fileID: 11400000, guid: 0c6a067ea4d7257448009b64018e3e2e, type: 2}
+      minimumPurchaseAmount: 0
+      minimumSaleAmount: 0
+      demand: 0
+      offer: 0
+      basePurchasePrice: 0
+      baseSellingPrice: 0
   - name: Mercado da Cidade
     products: []
   - name: "Licita\xE7\xE3o Municipal"

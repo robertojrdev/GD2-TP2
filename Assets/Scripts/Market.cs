@@ -104,13 +104,13 @@ public class Market
         bool isAboveMinimumPurchaseAmount = amount >= marketProduct.minimumPurchaseAmount;
 
         if (!hasMoney)
-            Debug.Log("you have not enough money :(");
+            Log.Msg("you do not have enough money :(", LogType.Warning);
 
         if (!marketHasEnough)
-            Debug.Log("market does not have this amount on sale");
+            Log.Msg("market does not have this amount on sale", LogType.Warning);
 
         if(!isAboveMinimumPurchaseAmount)
-            Debug.Log("this market has a minimum sale amount of " + marketProduct.minimumPurchaseAmount);
+            Log.Msg("this market has a minimum sale amount of " + marketProduct.minimumPurchaseAmount, LogType.Warning);
 
         if(!hasMoney || !marketHasEnough || !isAboveMinimumPurchaseAmount)
             return;
@@ -129,13 +129,13 @@ public class Market
         bool hasEnoughToSell = amount <= GameManager.Inventory.GetItemFinalProductAmount(marketProduct.product);
 
         if(!isOnDemand)
-            Debug.Log("The market dont want to buy this much");
+            Log.Msg("The market dont want to buy this much", LogType.Warning);
 
         if(!isAboveMinimumSellAmount)
-            Debug.Log("The market has a minimum of " + marketProduct.minimumSaleAmount + " items per transaction");
+            Log.Msg("The market has a minimum of " + marketProduct.minimumSaleAmount + " items per transaction", LogType.Warning);
 
         if(!hasEnoughToSell)
-            Debug.Log("You dont have this much in stock");
+            Log.Msg("You dont have this much in stock", LogType.Warning);
 
         if(!isOnDemand || !isAboveMinimumSellAmount || !hasEnoughToSell)
             return;

@@ -14,7 +14,18 @@ public class PopUpMarketItemInfo : PopUpItem
     private int marketIndex;
     private MarketProduct marketProduct;
 
-    private void OnDestroy()
+    private void OnEnable()
+    {
+        UpdateStock(marketProduct.product, marketIndex);
+        UpdateOffer(marketIndex, marketProduct, 0);
+        UpdateDemand(marketIndex, marketProduct, 0);
+
+        Market.onPurchase += UpdateOffer;
+        Market.onSell += UpdateDemand;
+        Inventory.onUpdateItemFinalProductAmount += UpdateStock;
+    }
+
+    private void OnDisable()
     {
         Market.onPurchase -= UpdateOffer;
         Market.onSell -= UpdateDemand;
@@ -33,20 +44,11 @@ public class PopUpMarketItemInfo : PopUpItem
 
         this.marketProduct = marketProduct;
         this.marketIndex = market;
-
-        
-        Market.onPurchase -= UpdateOffer;
-        Market.onSell -= UpdateDemand;
-        Inventory.onUpdateItemFinalProductAmount -= UpdateStock;
-
-        Market.onPurchase += UpdateOffer;
-        Market.onSell += UpdateDemand;
-        Inventory.onUpdateItemFinalProductAmount += UpdateStock;
     }
 
     private void UpdateStock(ItemInfo item, int amount)
     {
-        if(item == marketProduct.product)
+        if (item == marketProduct.product)
             amountOnInventory.text = GameManager.Inventory.GetItemFinalProductAmount(marketProduct.product).ToString();
     }
 
