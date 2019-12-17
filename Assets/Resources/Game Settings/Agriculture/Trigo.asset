@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   item: {fileID: 1094954139646899495, guid: b3ba51cfe7282814eaaf6a999b4fe3c5, type: 3}
   amountPerLandUnit: 1
-  matureTime: 1
+  matureTime: 3
   WinterSuccessRate: 0.8
   SpringSuccessRate: 0.5
   SummerSuccessRate: 0.8

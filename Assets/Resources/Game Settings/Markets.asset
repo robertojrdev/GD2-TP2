@@ -36,7 +36,7 @@ MonoBehaviour:
       offer: 10
       basePurchasePrice: 100
       baseSellingPrice: 110
-  - name: Feira
+  - name: Feira Semanal
     products:
     - product: {fileID: 11400000, guid: c1beade78f0c7424894c134a58a3a2c0, type: 2}
       minimumPurchaseAmount: 15
@@ -59,13 +59,46 @@ MonoBehaviour:
       offer: 30
       basePurchasePrice: 100
       baseSellingPrice: 110
-  - name: Mercado da Cidade
+    - product: {fileID: 11400000, guid: 254c59df05766ef4cb0cd219645be602, type: 2}
+      minimumPurchaseAmount: 25
+      minimumSaleAmount: 25
+      demand: 50
+      offer: 30
+      basePurchasePrice: 120
+      baseSellingPrice: 150
+  - name: Mercado Regional
+    products:
+    - product: {fileID: 11400000, guid: c1beade78f0c7424894c134a58a3a2c0, type: 2}
+      minimumPurchaseAmount: 150
+      minimumSaleAmount: 150
+      demand: 300
+      offer: 300
+      basePurchasePrice: 95
+      baseSellingPrice: 115
+    - product: {fileID: 11400000, guid: 0c6a067ea4d7257448009b64018e3e2e, type: 2}
+      minimumPurchaseAmount: 150
+      minimumSaleAmount: 150
+      demand: 200
+      offer: 150
+      basePurchasePrice: 95
+      baseSellingPrice: 120
+    - product: {fileID: 11400000, guid: 7a682d625e95be74898c504e57d68dff, type: 2}
+      minimumPurchaseAmount: 200
+      minimumSaleAmount: 200
+      demand: 300
+      offer: 300
+      basePurchasePrice: 85
+      baseSellingPrice: 105
+    - product: {fileID: 11400000, guid: 254c59df05766ef4cb0cd219645be602, type: 2}
+      minimumPurchaseAmount: 250
+      minimumSaleAmount: 250
+      demand: 500
+      offer: 300
+      basePurchasePrice: 110
+      baseSellingPrice: 145
+  - name: Mercado Nacional
     products: []
-  - name: "Licita\xE7\xE3o Municipal"
+  - name: Mercado Internacional
     products: []
-  - name: "Licita\xE7\xE3o Regional"
-    products: []
-  - name: "Licita\xE7\xE3o Nacional"
-    products: []
-  - name: Mercado Global
+  - name: Mercado Interestelar
     products: []
