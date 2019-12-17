@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     #region Static Getters
     public static Market Market { get => instance?.market; }
     public static Inventory Inventory { get => instance?.inventory; }
-    public static Season CurrentSeason { get => instance ? instance.currentSeason : Season.Autumn; }
+    public static Season CurrentSeason { get => instance ? instance.currentSeason : Season.Winter; }
     #endregion
 
     #region Inspector Variables
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     #region Private Variables
     private Market market = new Market();
     private Inventory inventory = new Inventory();
-    private Season currentSeason = Season.Autumn;
+    private Season currentSeason = Season.Winter;
     public ItemInfo itemToplace { get; private set; }
 
     private Camera _camera;

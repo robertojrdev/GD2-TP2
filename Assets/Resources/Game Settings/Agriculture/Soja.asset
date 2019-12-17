@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d40bad95fd6ec524b8167d202369f392, type: 3}
-  m_Name: Cotton
+  m_Name: Soja
   m_EditorClassIdentifier: 
   type: 0
   icon: {fileID: 0}
-  item: {fileID: 1990571418481003947, guid: 794db554311d7b140bdb47522e3f84df, type: 3}
+  item: {fileID: 1094954139646899495, guid: b3ba51cfe7282814eaaf6a999b4fe3c5, type: 3}
   amountPerLandUnit: 1
-  matureTime: 2
+  matureTime: 1
   WinterSuccessRate: 1
-  SpringSuccessRate: 1
-  SummerSuccessRate: 1
-  AutumnSuccessRate: 1
+  SpringSuccessRate: 0.8
+  SummerSuccessRate: 0.5
+  AutumnSuccessRate: 0.8
